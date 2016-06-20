@@ -1,7 +1,7 @@
 
 
 // Link to Firebase
-var employeeData = new Firebase("https://trainschedulerdg.firebaseio.com/");
+var trainData = new Firebase("https://trainschedulerdg.firebaseio.com/");
 
 // Button on click function for adding Trains
 $("#add-train-btn").on("click", function(){
@@ -9,8 +9,8 @@ $("#add-train-btn").on("click", function(){
 	// Grabs user input
 	var trainName = $("#train-input").val().trim();
 	var trainDest = $("#role-input").val().trim();
-	var trainFrequency = $("#train-start").val().trim();
-	var nextArrival = $("#train-frequency").val().trim();
+	var trainFrequency = $("#train-frequency").val().trim();
+	var nextArrival = $("#train-start").val().trim();
 
 	// Creates local "temporary" object for holding train data
 	var newTrain = {
@@ -21,7 +21,7 @@ $("#add-train-btn").on("click", function(){
 	}
 
 	// Uploads train data to the database
-	employeeData.push(newTrain);
+	trainData.push(newTrain);
 
 	// Logs everything to console
 	console.log(newTrain.name);
@@ -30,7 +30,7 @@ $("#add-train-btn").on("click", function(){
 	console.log(newTrain.arrival);
 
 	// Alert
-	alert("Train successfully added");
+	document.write("Train successfully added");
 
 	// Clears all of the text-boxes
 	$("#train-input").val("");
@@ -44,7 +44,7 @@ $("#add-train-btn").on("click", function(){
 
 
 // Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
-employeeData.on("child_added", function(childSnapshot, prevChildKey){
+trainData.on("child_added", function(childSnapshot, prevChildKey){
 
 	//----------------------- MOMENT.JS CODE START --------------------//
 	// pull values for frequency of the train and the first train time
@@ -91,7 +91,7 @@ employeeData.on("child_added", function(childSnapshot, prevChildKey){
 	console.log(nextArrival);
 
 	// Add each train's data into the table
-	$("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + nextTrain + "</td><td>" + nextArrival + "</td></tr>");
+	$("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFrequency + "</td><td>" + nextArrival + "</td></tr>");
 /*
 	var tableRow = $("<tr>");
 	var tableData1 = $("<td>");
