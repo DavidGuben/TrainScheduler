@@ -1,12 +1,30 @@
-// Steps to complete:
-/*
-1. Create Firebase link
-2. Create button for adding new employees - then update the html + update the database
-3. Create a way to retrieve employees from the employee database.
-4. Create a way to calculate the months worked. Using difference between start and current time. Then use moment.js formatting to set difference in months.
-5. Calculate Total billed
+var tFrequency = $("#rateInput").val().trim();
+var firstTime = $("#startInput").val(); //HH:mm
 
-*/
+// First Time (pushed back 1 year to make sure it comes before current time)
+var firstTimeConverted = moment(firstTime,"hh:mm").subtract(1, "years");
+document.write(firstTimeConverted);
+
+// Current Time
+var currentTime = moment();
+document.write("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+// Difference between the times
+var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+document.write("DIFFERENCE IN TIME: " + diffTime);
+
+// Time apart (remainder)
+var tRemainder = diffTime % tFrequency;
+document.write(tRemainder);
+
+// Minute Until Train
+var tMinutesTillTrain = tFrequency - tRemainder;
+document.write("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+// Next Train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes")
+document.write("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"))
+
 // 1. Link to Firebase
 var employeeData = new Firebase("https://trainschedulerdg.firebaseio.com/");
 
@@ -16,7 +34,7 @@ $("#addEmployeeBtn").on("click", function(){
 	// Grabs user input
 	var trainName = $("#trainInput").val().trim();
 	var trainDest = $("#roleInput").val().trim();
-	var trainFrequency = moment($("#startInput").val().trim(), "HH:mm").format("HH:mm");
+	var trainFrequency = moment($("#startInput").val().trim()).format("HH:mm");
 	var nextArrival = $("#rateInput").val().trim();
 
 	// Creates local "temporary" object for holding employee data
@@ -68,7 +86,7 @@ employeeData.on("child_added", function(childSnapshot, prevChildKey){
 	console.log(nextArrival);
 
 	// Prettify the employee start
-	var trainFrequencyPretty = moment.unix(trainFrequency).format("MM/DD/YY");
+	//var trainFrequencyPretty = moment.unix(trainFrequency).format("MM/DD/YY");
 	// Calculate the months worked using hardconre math
 	// To calculate the months worked
 	var empMonths = moment().diff(moment.unix(trainFrequency, 'X'), "months");
@@ -79,13 +97,13 @@ employeeData.on("child_added", function(childSnapshot, prevChildKey){
 	console.log(empBilled);
 
 	// Add each train's data into the table
-	$("#employeeTable > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFrequencyPretty + "</td><td>" + empMonths + "</td><td>" + nextArrival + "</td><td>" + empBilled + "</td></tr>");
+	$("#employeeTable > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + tMinutesTillTrain + "</td><td>" + empMonths + "</td><td>" + nextArrival + "</td><td>" + empBilled + "</td></tr>");
 
 	var tableRow = $("<tr>");
 	var tableData1 = $("<td>");
-	tableData1.html(trainName);
+	tableData1.html();
 	var tableData2 = $("<td>");
-	tableData2.html(trainDest);
+	tableData2.html();
 	var tableData3 = $("<td>");
 	var tableData4 = $("<td>");
 	tableRow.append(tableData1);
@@ -95,12 +113,3 @@ employeeData.on("child_added", function(childSnapshot, prevChildKey){
 	$("#employeeTable > tbody").append(tableRow);
 
 });
-
-
-// Example Time Math
-// -----------------------------------------------------------------------------
-// Assume Employee start date of January 1, 2015
-// Assume current date is March 1, 2016
-
-// We know that this is 15 months.
-// Now we will create code in moment.js to confirm that any attempt we use mets this test case

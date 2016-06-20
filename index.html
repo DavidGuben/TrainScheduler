@@ -94,36 +94,5 @@
   <!-- Javascript -->
   <script src="logic.js"></script>
 
-  <script>
-
-//time code
-  var tFrequency = 3;
-  var firstTime = "03:30"; // Time is 3:30 AM
-
-  // First Time (pushed back 1 year to make sure it comes before current time)
-  var firstTimeConverted = moment(firstTime,"hh:mm").subtract(1, "years");
-  document.write(firstTimeConverted);
-
-  // Current Time
-  var currentTime = moment();
-  document.write("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-
-  // Difference between the times
-  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-  document.write("DIFFERENCE IN TIME: " + diffTime);
-
-  // Time apart (remainder)
-  var tRemainder = diffTime % tFrequency;
-  document.write(tRemainder);
-
-  // Minute Until Train
-  var tMinutesTillTrain = tFrequency - tRemainder;
-  document.write("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-
-  // Next Train
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes")
-  document.write("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"))
-
-  </script>
 </body>
 </html>
