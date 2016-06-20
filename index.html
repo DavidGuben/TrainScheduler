@@ -37,12 +37,11 @@
   					<table class="table table-hover" id='employeeTable'>
   						<thead>
   							<tr>
-  								<th>Employee Name</th>
-  								<th>Role</th>
-  								<th>Start Date</th>
-  								<th>Months Worked</th>
-  								<th>Monthly Rate ($)</th>
-  								<th>Total Billed ($)</th>
+  								<th>Train Name</th>
+  								<th>Destination</th>
+  								<th>Frequency(Min)</th>
+  								<th>Next Arrival</th>
+  								<th>Minutes Away</th>
   							</tr>
   						</thead>
   						<tbody>
@@ -63,22 +62,22 @@
   				<!-- Entry Form -->
   				<form>
   					<div class="form-group">
-  						<label for="">Employee Name</label>
+  						<label for="">Train Name</label>
   						<input type="text" class="form-control" id="employeeNameInput">
   					</div>
 
   					<div class="form-group">
-  						<label for="">Role</label>
+  						<label for="">Destination</label>
   						<input type="text" class="form-control" id="roleInput">
   					</div>
 
   					<div class="form-group">
-  						<label for="">Start Date (DD/MM/YY - ex: 01/01/89)</label>
+  						<label for="">First Train Time (HH:mm - Military Time)</label>
   						<input type="text" class="form-control" id="startInput">
   					</div>
 
   					<div class="form-group">
-  						<label for="">Monthly Rate</label>
+  						<label for="">Frequency(min)</label>
   						<input type="text" class="form-control" id="rateInput">
   					</div>
 
@@ -93,20 +92,9 @@
   </div>
 
   <!-- Javascript -->
-  <script src="timesheet-logic.js"></script>
+  <script src="logic.js"></script>
 
   <script>
-
-
-
-
-
-
-
-
-
-
-
 
 //time code
   var tFrequency = 3;
