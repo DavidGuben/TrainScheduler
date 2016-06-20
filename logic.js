@@ -16,7 +16,7 @@ $("#addEmployeeBtn").on("click", function(){
 	// Grabs user input
 	var empName = $("#employeeNameInput").val().trim();
 	var empRole = $("#roleInput").val().trim();
-	var empStart = moment($("#startInput").val().trim(), "DD/MM/YY").format("X");
+	var empStart = moment($("#startInput").val().trim(), "HH:mm").format("HH:mm");
 	var empRate = $("#rateInput").val().trim();
 
 	// Creates local "temporary" object for holding employee data
